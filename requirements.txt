@@ -1,0 +1,10 @@
+openai
+sentence-transformers
+rank-bm25
+numpy
+scikit-learn
+faiss-cpu
+jupyter
+matplotlib
+requests
+gitpython

@@ -1,0 +1,274 @@
+[
+  {
+    "id": 1,
+    "query_code": "    def test_update_full_range(self):\n        sd = SqrtDecomposition([1, 2, 3, 4, 5, 6, 7, 8, 9])\n        sd.update(4, 10)\n        self.assertEqual(sd.query(0, 8), 50)",
+    "candidate_code": "def time_complexities():\n    \"\"\"\n    Return information on time complexity\n    :return: string\n    \"\"\"\n    return (\"Best Case: O(n + k) where k is range of input, \"\n            \"Average Case: O(n + k) with many duplicates or O(n^2), \"\n            \"Worst Case: O(n^2)\")",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 2,
+    "query_code": "def factorial_recursive(n):\n    if n == 0 or n == 1:\n        return 1\n    return n * factorial_recursive(n - 1)",
+    "candidate_code": "def factorial_iterative(n):\n    result = 1\n    for i in range(2, n + 1):\n        result *= i\n    return result",
+    "label": false,
+    "transformation": "none",
+    "note": "Same problem (factorial) \u2014 recursive vs iterative"
+  },
+  {
+    "id": 3,
+    "query_code": "    def test_is_one_edit(self):\n        self.assertTrue(is_one_edit(\"abc\", \"abd\"))\n        self.assertFalse(is_one_edit(\"abc\", \"aed\"))\n        self.assertFalse(is_one_edit(\"abcd\", \"abcd\"))",
+    "candidate_code": "    def test_binary_tree(self):\n        root = tree.Node(1)\n        root.set_left(tree.Node(2))\n        root.set_right(tree.Node(3))\n        root.left.set_left(tree.Node(4))\n\n        Tree = tree.BinaryTree()\n        inorderTraversal = Tree.inorder(root)\n        expectedResult = [4, 2, 1, 3]\n        self.assertEqual(inorderTraversal, expectedResult)\n        preorderTraversal = Tree.preorder(root)\n        expectedResult = [1, 2, 4, 3]\n        self.assertEqual(preorderTraversal, expectedResult)\n        postorderTraversal = Tree.postorder(root)\n        expectedResult = [4, 2, 3, 1]\n        self.assertEqual(postorderTraversal, expectedResult)",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 4,
+    "query_code": "    def add_edge(self, from_vertex: int, to_vertex: int, weight: int):\n        if weight not in (0, 1):\n            raise ValueError(\"Edge weight must be either 0 or 1.\")\n\n        if to_vertex < 0 or to_vertex >= self.size:\n            raise ValueError(\"Vertex indexes must be in [0; size).\")\n\n        self._graph[from_vertex].append(Edge(to_vertex, weight))",
+    "candidate_code": "    def add_edge(self, from_vertex: int, to_vertex: int, weight: int):\n        \"\"\"\n        >>> g = AdjacencyList(2)\n        >>> g.add_edge(0, 1, 0)\n        >>> g.add_edge(1, 0, 1)\n        >>> list(g[0])\n        [Edge(destination_vertex=1, weight=0)]\n        >>> list(g[1])\n        [Edge(destination_vertex=0, weight=1)]\n        >>> g.add_edge(0, 1, 2)\n        Traceback (most recent call last):\n            ...\n        ValueError: Edge weight must be either 0 or 1.\n        >>> g.add_edge(0, 2, 1)\n        Traceback (most recent call last):\n            ...\n        ValueError: Vertex indexes must be in [0; size).\n        \"\"\"\n        if weight not in (0, 1):\n            raise ValueError(\"Edge weight must be either 0 or 1.\")\n\n        if to_vertex < 0 or to_vertex >= self.size:\n            raise ValueError(\"Vertex indexes must be in [0; size).\")\n\n        self._graph[from_vertex].append(Edge(to_vertex, weight))",
+    "label": true,
+    "transformation": "docstring_removal",
+    "note": "Transformed from add_edge in data/reference_corpus/Python/graphs/breadth_first_search_zero_one_shortest_path.py"
+  },
+  {
+    "id": 5,
+    "query_code": "def count_words_split(text):\n    return len(text.split())",
+    "candidate_code": "def count_words_manual(text):\n    count = 0\n    in_word = False\n    for char in text:\n        if char != ' ' and not in_word:\n            in_word = True\n            count += 1\n        elif char == ' ':\n            in_word = False\n    return count",
+    "label": false,
+    "transformation": "none",
+    "note": "Same problem (word count) \u2014 split() vs manual character traversal"
+  },
+  {
+    "id": 6,
+    "query_code": "    def count_of_possible_combinations(target: int) -> int:\n    # begin logic\n        if target < 0:\n            return 0\n        if target == 0:\n            return 1\n        return sum(count_of_possible_combinations(target - item) for item in array)",
+    "candidate_code": "    def count_of_possible_combinations(target: int) -> int:\n        if target < 0:\n            return 0\n        if target == 0:\n            return 1\n        return sum(count_of_possible_combinations(target - item) for item in array)",
+    "label": true,
+    "transformation": "added_comment",
+    "note": "Transformed from count_of_possible_combinations in data/reference_corpus/Python/dynamic_programming/combination_sum_iv.py"
+  },
+  {
+    "id": 7,
+    "query_code": "def gcd_euclidean(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+    "candidate_code": "def gcd_recursive(a, b):\n    if b == 0:\n        return a\n    return gcd_recursive(b, a % b)",
+    "label": false,
+    "transformation": "none",
+    "note": "Same problem (GCD) \u2014 iterative Euclidean vs recursive"
+  },
+  {
+    "id": 8,
+    "query_code": "def is_palindrome_slice(s):\n    s = s.lower().replace(' ', '')\n    return s == s[::-1]",
+    "candidate_code": "def is_palindrome_twopointer(s):\n    s = s.lower().replace(' ', '')\n    left, right = 0, len(s) - 1\n    while left < right:\n        if s[left] != s[right]:\n            return False\n        left += 1\n        right -= 1\n    return True",
+    "label": false,
+    "transformation": "none",
+    "note": "Same problem (palindrome) \u2014 slicing vs two-pointer"
+  },
+  {
+    "id": 9,
+    "query_code": "def flatten_recursive(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten_recursive(item))\n        else:\n            result.append(item)\n    return result",
+    "candidate_code": "def flatten_iterative(lst):\n    stack = [lst]\n    result = []\n    while stack:\n        current = stack.pop()\n        for item in current:\n            if isinstance(item, list):\n                stack.append(item)\n            else:\n                result.append(item)\n    return result",
+    "label": false,
+    "transformation": "none",
+    "note": "Same problem (flatten list) \u2014 recursive vs iterative stack"
+  },
+  {
+    "id": 10,
+    "query_code": "    def extend(self, data):\n    # begin logic\n        \"\"\"\n        Append the given data to the end of the Table.\n        \"\"\"\n        if not data:\n            return\n        self._data.extend(data)\n        self._set_width()\n        self._fill()",
+    "candidate_code": "    def extend(self, data):\n        \"\"\"\n        Append the given data to the end of the Table.\n        \"\"\"\n        if not data:\n            return\n        self._data.extend(data)\n        self._set_width()\n        self._fill()",
+    "label": true,
+    "transformation": "added_comment",
+    "note": "Transformed from extend in data/reference_corpus/boltons/boltons/tableutils.py"
+  },
+  {
+    "id": 11,
+    "query_code": "    def ci_green(self):\n    _unused = None\n        \"\"\"\n        Chlorophyll Index self.green\n        https://www.indexdatabase.de/db/i-single.php?id=128\n        :return: index\n        \"\"\"\n        return (self.nir / self.green) - 1",
+    "candidate_code": "    def ci_green(self):\n        \"\"\"\n        Chlorophyll Index self.green\n        https://www.indexdatabase.de/db/i-single.php?id=128\n        :return: index\n        \"\"\"\n        return (self.nir / self.green) - 1",
+    "label": true,
+    "transformation": "dummy_variable",
+    "note": "Transformed from ci_green in data/reference_corpus/Python/digital_image_processing/index_calculation.py"
+  },
+  {
+    "id": 12,
+    "query_code": "def _norm_args_notimplemented(other):\n    _unused = None\n    '''normalize args and return NotImplemented (for overloaded operators)'''\n    if type(other) in (set, frozenset):\n        inc, exc = other, None\n    elif type(other) is _ComplementSet:\n        inc, exc = other._included, other._excluded\n    else:\n        return NotImplemented, None\n    return inc, exc",
+    "candidate_code": "def _norm_args_notimplemented(other):\n    '''normalize args and return NotImplemented (for overloaded operators)'''\n    if type(other) in (set, frozenset):\n        inc, exc = other, None\n    elif type(other) is _ComplementSet:\n        inc, exc = other._included, other._excluded\n    else:\n        return NotImplemented, None\n    return inc, exc",
+    "label": true,
+    "transformation": "dummy_variable",
+    "note": "Transformed from _norm_args_notimplemented in data/reference_corpus/boltons/boltons/setutils.py"
+  },
+  {
+    "id": 13,
+    "query_code": "    def test_count_ones_iter(self):\n\n        self.assertEqual(1, count_ones_iter(8))\n\n        self.assertEqual(5, count_ones_iter(109))\n\n        self.assertEqual(6, count_ones_iter(63))\n\n        self.assertEqual(0, count_ones_iter(0))",
+    "candidate_code": "    def test_count_ones_iter(self):\n\n        # 8 -> 1000\n        self.assertEqual(1, count_ones_iter(8))\n\n        # 109 -> 1101101\n        self.assertEqual(5, count_ones_iter(109))\n\n        # 63 -> 111111\n        self.assertEqual(6, count_ones_iter(63))\n\n        # 0 -> 0\n        self.assertEqual(0, count_ones_iter(0))",
+    "label": true,
+    "transformation": "comment_removal",
+    "note": "Transformed from test_count_ones_iter in data/reference_corpus/algorithms/tests/test_bit_manipulation.py"
+  },
+  {
+    "id": 14,
+    "query_code": "    def test_remove_min(self):\n        ret = self.min_heap.remove_min()\n        # Before remove_min : [0, 4, 50, 7, 55, 90, 87]\n        # After remove_min: [7, 50, 87, 55, 90]\n        # Test return value\n        self.assertEqual(4, ret)\n        self.assertEqual([0, 7, 50, 87, 55, 90], self.min_heap.heap)\n        self.assertEqual(5, self.min_heap.current_size)",
+    "candidate_code": "def time_complexities():\n    \"\"\"\n    Return information on functions\n    time complexity\n    :return: string\n    \"\"\"\n    return \"Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(nlogn)\"",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 15,
+    "query_code": "def update_bit(number: int, position: int, bit: int) -> int:\n    \"\"\"Update the bit at a specific position to a given value.\n\n    First clears the bit at *position*, then ORs in the new *bit* value\n    shifted to that position.\n\n    Args:\n        number: The integer to modify.\n        position: Zero-based bit index to update.\n        bit: The new bit value (0 or 1).\n\n    Returns:\n        The integer with the bit at *position* set to *bit*.\n\n    Examples:\n        >>> update_bit(22, 3, 1)\n        30\n        >>> update_bit(22, 2, 0)\n        18\n    \"\"\"\n    mask = ~(1 << position)\n    return (number & mask) | (bit << position)",
+    "candidate_code": "def setup_fig02():\n    fig, ax, renderer = create_newfig('{}02'.format(func_code))\n    \n    create_moving_polygon(fig, ax, renderer, ((1, 2), (1, 3), (2, 3), (2, 2)), (4, 0), 'topright')\n    create_still_polygon(fig, ax, renderer, ((2, 1), (4, 2), (5, 0), (1, 0)), 'botleft')\n    return fig, ax, '{}02_{}'.format(func_code, func_name)",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 16,
+    "query_code": "    def setUp(self):\n    _unused = None\n        self.spooled_flo = ioutils.SpooledStringIO()\n        self.test_str = \"Remember kids, always use an emdash: '\\u2014'\"\n        self.test_str_lines = f\"Text with\\u2014{os.linesep}newlines!\"\n        self.data_type = str",
+    "candidate_code": "    def setUp(self):\n        self.spooled_flo = ioutils.SpooledStringIO()\n        self.test_str = \"Remember kids, always use an emdash: '\\u2014'\"\n        self.test_str_lines = f\"Text with\\u2014{os.linesep}newlines!\"\n        self.data_type = str",
+    "label": true,
+    "transformation": "dummy_variable",
+    "note": "Transformed from setUp in data/reference_corpus/boltons/tests/test_ioutils.py"
+  },
+  {
+    "id": 17,
+    "query_code": "    def fileno(self):\n    # begin logic\n        \"\"\"Returns the file descriptor of the wrapped socket. -1 if it has\n        been closed on this end.\n\n        Note that this makes the BufferedSocket selectable, i.e.,\n        usable for operating system event loops without any external\n        libraries. Keep in mind that the operating system cannot know\n        about data in BufferedSocket's internal buffer. Exercise\n        discipline with calling ``recv*`` functions.\n        \"\"\"\n        return self.sock.fileno()",
+    "candidate_code": "    def fileno(self):\n        \"\"\"Returns the file descriptor of the wrapped socket. -1 if it has\n        been closed on this end.\n\n        Note that this makes the BufferedSocket selectable, i.e.,\n        usable for operating system event loops without any external\n        libraries. Keep in mind that the operating system cannot know\n        about data in BufferedSocket's internal buffer. Exercise\n        discipline with calling ``recv*`` functions.\n        \"\"\"\n        return self.sock.fileno()",
+    "label": true,
+    "transformation": "added_comment",
+    "note": "Transformed from fileno in data/reference_corpus/boltons/boltons/socketutils.py"
+  },
+  {
+    "id": 18,
+    "query_code": "def sum_list_builtin(nums):\n    return sum(nums)",
+    "candidate_code": "def sum_list_manual(nums):\n    total = 0\n    for n in nums:\n        total += n\n    return total",
+    "label": false,
+    "transformation": "none",
+    "note": "Same problem (sum list) \u2014 builtin vs manual loop"
+  },
+  {
+    "id": 19,
+    "query_code": "def find_nth_digit(n: int) -> int:\n    \"\"\"Find the nth digit in the sequence of natural numbers.\n\n    Args:\n        n: The 1-based position of the digit to find.\n\n    Returns:\n        The digit at position n.\n\n    Examples:\n        >>> find_nth_digit(11)\n        0\n    \"\"\"\n    length = 1\n    count = 9\n    start = 1\n    while n > length * count:\n        n -= length * count\n        length += 1\n        count *= 10\n        start *= 10\n    start += (n - 1) / length\n    s = str(start)\n    return int(s[(n - 1) % length])",
+    "candidate_code": "def setup_fig02():\n    fig, ax, renderer = create_newfig('{}02'.format(func_code))\n    \n    create_moving_polygon(fig, ax, renderer, ((1, 1), (2, 2), (3, 1)), (-1, 1), 'topright')\n    create_still_polygon(fig, ax, renderer, ((2.5, 0.5), (4, 0.5), (5, 1), (4.5, 2.5)), 'botleft')\n    return fig, ax, '{}02_{}'.format(func_code, func_name)",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 20,
+    "query_code": "    def test_max_segment_tree_with_updates(self):\n        arr = [-1, 1, 10, 2, 9, -3, 8, 4, 7, 5, 6, 0]\n        updates = {\n            0: 1,\n            1: 2,\n            2: 3,\n            3: 4,\n            4: 5,\n            5: 6,\n            6: 7,\n            7: 8,\n            8: 9,\n            9: 10,\n            10: 11,\n            11: 12,\n        }\n        self.__test_all_segments_with_updates(arr, max, updates)",
+    "candidate_code": "    def get_code():\n        \"\"\"\n        returns the code of the current class\n        \"\"\"\n        return inspect.getsource(CircularLinkedList)",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 21,
+    "query_code": "def merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i]); i += 1\n        else:\n            result.append(right[j]); j += 1\n    return result + left[i:] + right[j:]",
+    "candidate_code": "def bubble_sort(arr):\n    for i in range(len(arr)):\n        for j in range(len(arr)-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n    return arr",
+    "label": false,
+    "transformation": "none",
+    "note": "Both sort arrays \u2014 merge sort (divide & conquer) vs bubble sort (adjacent swaps)"
+  },
+  {
+    "id": 22,
+    "query_code": "def plot_heterogeneity(heterogeneity, k):\n    _unused = None\n    plt.figure(figsize=(7, 4))\n    plt.plot(heterogeneity, linewidth=4)\n    plt.xlabel(\"# Iterations\")\n    plt.ylabel(\"Heterogeneity\")\n    plt.title(f\"Heterogeneity of clustering over time, K={k:d}\")\n    plt.rcParams.update({\"font.size\": 16})\n    plt.show()",
+    "candidate_code": "def plot_heterogeneity(heterogeneity, k):\n    plt.figure(figsize=(7, 4))\n    plt.plot(heterogeneity, linewidth=4)\n    plt.xlabel(\"# Iterations\")\n    plt.ylabel(\"Heterogeneity\")\n    plt.title(f\"Heterogeneity of clustering over time, K={k:d}\")\n    plt.rcParams.update({\"font.size\": 16})\n    plt.show()",
+    "label": true,
+    "transformation": "dummy_variable",
+    "note": "Transformed from plot_heterogeneity in data/reference_corpus/Python/machine_learning/k_means_clust.py"
+  },
+  {
+    "id": 23,
+    "query_code": "def stack_with_list():\n    stack = []\n    def push(x): stack.append(x)\n    def pop(): return stack.pop() if stack else None\n    def peek(): return stack[-1] if stack else None\n    return push, pop, peek",
+    "candidate_code": "class StackLinkedList:\n    class Node:\n        def __init__(self, val):\n            self.val = val\n            self.next = None\n    def __init__(self):\n        self.head = None\n    def push(self, x):\n        node = self.Node(x)\n        node.next = self.head\n        self.head = node\n    def pop(self):\n        if not self.head: return None\n        val = self.head.val\n        self.head = self.head.next\n        return val",
+    "label": false,
+    "transformation": "none",
+    "note": "Same data structure (stack) \u2014 list-based vs linked list"
+  },
+  {
+    "id": 24,
+    "query_code": "    def _get_char_frequency(file: object) -> dict[int, int]:\n        \"\"\"Count byte frequencies in a file.\n\n        Args:\n            file: The input file object.\n\n        Returns:\n            A dict mapping byte values to their frequencies.\n        \"\"\"\n        is_end_of_file = False\n        signs_frequency: dict[int, int] = defaultdict(lambda: 0)\n        while not is_end_of_file:\n            prev_pos = file.tell()\n            sign = file.read(1)\n            curr_pos = file.tell()\n            if prev_pos == curr_pos:\n                is_end_of_file = True\n            else:\n                signs_frequency[int.from_bytes(sign, \"big\")] += 1\n        return signs_frequency",
+    "candidate_code": "def sort(_list):\n    \"\"\"\n    quick_sort algorithm\n    :param _list: list of integers to sort\n    :return: sorted list\n    \"\"\"\n    if len(_list) <= 1:\n        return list(_list)\n    pivot = _list[len(_list) // 2]\n    left = [x for x in _list if x < pivot]\n    middle = [x for x in _list if x == pivot]\n    right = [x for x in _list if x > pivot]\n    return sort(left) + middle + sort(right)",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 25,
+    "query_code": "def fibonacci_memo(n, memo={}):\n    if n in memo:\n        return memo[n]\n    if n <= 1:\n        return n\n    memo[n] = fibonacci_memo(n-1, memo) + fibonacci_memo(n-2, memo)\n    return memo[n]",
+    "candidate_code": "def fibonacci_iterative(n):\n    if n <= 1:\n        return n\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b",
+    "label": false,
+    "transformation": "none",
+    "note": "Same problem (fibonacci) \u2014 memoized recursion vs iterative"
+  },
+  {
+    "id": 26,
+    "query_code": "def odd_even_transposition(arr: list) -> list:\n    \"\"\"\n    >>> odd_even_transposition([5, 4, 3, 2, 1])\n    [1, 2, 3, 4, 5]\n\n    >>> odd_even_transposition([13, 11, 18, 0, -1])\n    [-1, 0, 11, 13, 18]\n\n    >>> odd_even_transposition([-.1, 1.1, .1, -2.9])\n    [-2.9, -0.1, 0.1, 1.1]\n    \"\"\"\n    arr_size = len(arr)\n    for _ in range(arr_size):\n        for idx in range(_ % 2, arr_size - 1, 2):\n            if arr[idx + 1] < arr[idx]:\n                arr[idx], arr[idx + 1] = arr[idx + 1], arr[idx]\n\n    return arr",
+    "candidate_code": "def odd_even_transposition(arr: list) -> list:\n    \"\"\"\n    >>> odd_even_transposition([5, 4, 3, 2, 1])\n    [1, 2, 3, 4, 5]\n\n    >>> odd_even_transposition([13, 11, 18, 0, -1])\n    [-1, 0, 11, 13, 18]\n\n    >>> odd_even_transposition([-.1, 1.1, .1, -2.9])\n    [-2.9, -0.1, 0.1, 1.1]\n    \"\"\"\n    arr_size = len(arr)\n    for _ in range(arr_size):\n        for i in range(_ % 2, arr_size - 1, 2):\n            if arr[i + 1] < arr[i]:\n                arr[i], arr[i + 1] = arr[i + 1], arr[i]\n\n    return arr",
+    "label": true,
+    "transformation": "variable_renaming",
+    "note": "Transformed from odd_even_transposition in data/reference_corpus/Python/sorts/odd_even_transposition_single_threaded.py"
+  },
+  {
+    "id": 27,
+    "query_code": "def find_maximum(items):\n    max_value = items[0]\n    for value in items[1:]:\n        if value > max_value:\n            max_value = value\n    return max_value",
+    "candidate_code": "def find_max(data):\n    result = data[0]\n    for i in range(1, len(data)):\n        if data[i] > result:\n            result = data[i]\n    return result",
+    "label": true,
+    "transformation": "variable_renaming",
+    "note": "find_max with renamed variables and loop style"
+  },
+  {
+    "id": 28,
+    "query_code": "    def test_strip_url_params1(self):\n        self.assertEqual(\n            strip_url_params1(\"www.saadbenn.com?a=1&b=2&a=2\"),\n            \"www.saadbenn.com?a=1&b=2\",\n        )\n        self.assertEqual(\n            strip_url_params1(\"www.saadbenn.com?a=1&b=2\", [\"b\"]),\n            \"www.saadbenn.com?a=1\",\n        )",
+    "candidate_code": "def setup_fig03():\n    fig, ax, renderer = create_newfig('{}03'.format(func_code), xlim=(-3, 9), ylim=(-1, 15))\n    \n    create_moving_polygon(fig, ax, renderer, ((0.5, 9.0), (-1.5, 8.0), (-1.5, 6.0), (1.5, 5.0), (2.5, 5.0), (2.5, 9.0)), (0, 5))\n    create_still_polygon(fig, ax, renderer, ((7.0, 6.0), (4.0, 5.0), (4.0, 3.0), (6.0, 2.0), (8.0, 3.0)))\n    return fig, ax, '{}03_{}'.format(func_code, func_name)",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 29,
+    "query_code": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+    "candidate_code": "def linear_search(arr, target):\n    for i in range(len(arr)):\n        if arr[i] == target:\n            return i\n    return -1",
+    "label": false,
+    "transformation": "none",
+    "note": "Both search arrays \u2014 binary search (O log n) vs linear search (O n)"
+  },
+  {
+    "id": 30,
+    "query_code": "def generate_parenthesis_v1(count: int) -> list[str]:\n    \"\"\"Generate all valid parenthesis combinations (right-first variant).\n\n    Builds combinations by tracking remaining left and right parentheses,\n    trying to add a closing paren before an opening one.\n\n    Args:\n        count: The number of parenthesis pairs.\n\n    Returns:\n        A list of all valid parenthesis strings.\n\n    Examples:\n        >>> generate_parenthesis_v1(2)\n        ['()()', '(())']\n    \"\"\"\n    result: list[str] = []\n    _add_pair_v1(result, \"\", count, 0)\n    return result",
+    "candidate_code": "def create_empty_board():\n    \"\"\"\n    Create an empty 9x9 Sudoku board\n    \n    :return: 9x9 2D list filled with zeros\n    \"\"\"\n    return [[0 for _ in range(9)] for _ in range(9)]",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 31,
+    "query_code": "def reverse_string_slice(s):\n    return s[::-1]",
+    "candidate_code": "def reverse_string_loop(s):\n    result = \"\"\n    for char in s:\n        result = char + result\n    return result",
+    "label": false,
+    "transformation": "none",
+    "note": "Same problem (reverse string) \u2014 slicing vs loop"
+  },
+  {
+    "id": 32,
+    "query_code": "    def test_construct_tree_with_update_2(self):\n        freq = [1, 2, 3, 4, 5]\n        ft = Fenwick_Tree(freq)\n        bit_tree = ft.construct()\n        self.assertEqual(10, ft.get_sum(bit_tree, 3))\n\n        freq[3] -= 5\n        ft.update_bit(bit_tree, 3, -5)\n        self.assertEqual(5, ft.get_sum(bit_tree, 3))",
+    "candidate_code": "def setup_fig01():\n    fig, ax, renderer = create_newfig('{}01'.format(func_code), xlim=(-1, 10), ylim=(-1, 7))\n\n    create_moving_polygon(fig, ax, renderer, ((2, 2), (2, 3, 'topleft'), (3, 3), (3, 2)), (5, 3), 'none')\n    create_still_polygon(fig, ax, renderer, ((3, 5, 'topleft'), (4, 5), (4, 4), (3, 4)), 'none')\n    return fig, ax, '{}01_{}'.format(func_code, func_name)",
+    "label": false,
+    "transformation": "none",
+    "note": "Different domain: algorithms vs pygorithm"
+  },
+  {
+    "id": 33,
+    "query_code": "def test_deleted_items_are_not_founded_by_find_method():\n    # begin logic\n    skip_list = SkipList()\n\n    skip_list.insert(\"Key1\", 12)\n    skip_list.insert(\"V\", 13)\n    skip_list.insert(\"X\", 14)\n    skip_list.insert(\"Key2\", 15)\n\n    skip_list.delete(\"V\")\n    skip_list.delete(\"Key2\")\n\n    assert skip_list.find(\"V\") is None\n    assert skip_list.find(\"Key2\") is None",
+    "candidate_code": "def test_deleted_items_are_not_founded_by_find_method():\n    skip_list = SkipList()\n\n    skip_list.insert(\"Key1\", 12)\n    skip_list.insert(\"V\", 13)\n    skip_list.insert(\"X\", 14)\n    skip_list.insert(\"Key2\", 15)\n\n    skip_list.delete(\"V\")\n    skip_list.delete(\"Key2\")\n\n    assert skip_list.find(\"V\") is None\n    assert skip_list.find(\"Key2\") is None",
+    "label": true,
+    "transformation": "added_comment",
+    "note": "Transformed from test_deleted_items_are_not_founded_by_find_method in data/reference_corpus/Python/data_structures/linked_list/skip_list.py"
+  },
+  {
+    "id": 34,
+    "query_code": "def is_even(size):\n    return size % 2 == 0",
+    "candidate_code": "def is_even(n):\n    return n % 2 == 0",
+    "label": true,
+    "transformation": "variable_renaming",
+    "note": "Simple even check with renamed parameter"
+  }
+]
